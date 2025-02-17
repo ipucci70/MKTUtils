@@ -1,4 +1,4 @@
-package org.example.lightadaptercip.utils;
+package org.example;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

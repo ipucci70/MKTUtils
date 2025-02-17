@@ -1,4 +1,4 @@
-package org.example.lightadaptercip.utils;
+package org.example;
 
 import com.google.common.base.Strings;
 //import it.list.jft.dd.ftxcandeal.r1.FTXCANDEAL;
