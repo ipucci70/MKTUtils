@@ -111,4 +111,10 @@ public class Utils {
         e.printStackTrace(pw);
         return sw.toString();
     }
+
+    // returns an exponentially increasing multiple of 100, capped at 300000 (5 minutes)
+    public static long exponentialBackoffTimeMs(int attemptNumber) {
+        // 2^12 *100 = 409600
+        return attemptNumber > 11 ? 300000L : (long) Math.pow(2, attemptNumber) * 100L;
+    }
 }
