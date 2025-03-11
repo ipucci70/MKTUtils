@@ -33,6 +33,10 @@ public class Utils {
     public static final double FT_C_NULL_SPREAD = -999999.0;
     public static final double FT_C_NULL_NPV = -999999.0;
     
+    private Utils() {
+    	// So we can't instantiate the unnecessary class
+    }
+    
     private static final double[] POW_10 = {
             1.0,
             10.0,
@@ -55,12 +59,12 @@ public class Utils {
         return Integer.parseInt(MTIME_FORMATTER.format(LocalTime.now()));
     }
 
-    public static int getTimeNowMicroseconds(){
+    public static long getTimeNowMicroseconds(){
           // Get the current local date and time with microsecond precision
           Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
           LocalDateTime localDateTime = LocalDateTime.ofInstant(now, ZoneId.systemDefault());
           
-          return Integer.parseInt(localDateTime.format(MICROSECONDS_FORMATTER));
+          return Long.parseLong(localDateTime.format(MICROSECONDS_FORMATTER));
     }
 
     public static double getRandomPrice(double origin, double bound, double tick) {
