@@ -11,13 +11,20 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.ThreadLocalRandom;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.Instant;
+import java.time.ZoneId;
+
 
 public class Utils {
     private static final DateTimeFormatter DATE_FORMATTER =
             DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final DateTimeFormatter MTIME_FORMATTER =
             DateTimeFormatter.ofPattern("HHmmssSSS");
-
+    private static final DateTimeFormatter MICROSECONDS_FORMATTER =
+            DateTimeFormatter.ofPattern("HHmmssSSSSSS");
+            
     private static final double RANDOM_BLANK_CHANCE = .25;
 
     public static final double FT_C_NULL_PRICE = 0.0;
@@ -46,6 +53,14 @@ public class Utils {
 
     public static int getMTimeNow() {
         return Integer.parseInt(MTIME_FORMATTER.format(LocalTime.now()));
+    }
+
+    public static int getTimeNowMicroseconds(){
+          // Get the current local date and time with microsecond precision
+          Instant now = Instant.now().truncatedTo(ChronoUnit.MICROS);
+          LocalDateTime localDateTime = LocalDateTime.ofInstant(now, ZoneId.systemDefault());
+          
+          return Integer.parseInt(localDateTime.format(MICROSECONDS_FORMATTER));
     }
 
     public static double getRandomPrice(double origin, double bound, double tick) {
@@ -117,4 +132,5 @@ public class Utils {
         // 2^12 *100 = 409600
         return attemptNumber > 11 ? 300000L : (long) Math.pow(2, attemptNumber) * 100L;
     }
+
 }
