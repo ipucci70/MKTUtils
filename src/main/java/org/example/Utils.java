@@ -24,7 +24,9 @@ public class Utils {
             DateTimeFormatter.ofPattern("HHmmssSSS");
     private static final DateTimeFormatter MICROSECONDS_FORMATTER =
             DateTimeFormatter.ofPattern("HHmmssSSSSSS");
-            
+    private static final DateTimeFormatter NANOSECONDS_FORMATTER =
+            DateTimeFormatter.ofPattern("HHmmssSSSSSSSSS");
+
     private static final double RANDOM_BLANK_CHANCE = .25;
 
     public static final double FT_C_NULL_PRICE = 0.0;
@@ -67,6 +69,14 @@ public class Utils {
           return Long.parseLong(localDateTime.format(MICROSECONDS_FORMATTER));
     }
 
+    public static long getTimeNowNanoseconds(){
+        // Get the current local date and time with nanosecond precision
+        Instant now = Instant.now().truncatedTo(ChronoUnit.NANOS);
+        LocalDateTime localDateTime = LocalDateTime.ofInstant(now, ZoneId.systemDefault());
+        
+        return Long.parseLong(localDateTime.format(NANOSECONDS_FORMATTER));
+    }
+    
     public static double getRandomPrice(double origin, double bound, double tick) {
         if (ThreadLocalRandom.current().nextDouble() < RANDOM_BLANK_CHANCE) return FT_C_NULL_PRICE;
         return getRandomDouble(origin, bound, tick);
