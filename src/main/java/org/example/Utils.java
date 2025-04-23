@@ -147,4 +147,16 @@ public class Utils {
         return attemptNumber > 11 ? 300000L : (long) Math.pow(2, attemptNumber) * 100L;
     }
 
+    public static long getMicrosecondsDifference(long microSecondsFrom, long microSecondsTo){
+
+        long secondsFrom = microSecondsFrom / 1000000;
+        long secondsTo = microSecondsTo / 1000000;
+
+        long secondsOffsetFrom = (secondsFrom / 10000 * 3600) + (secondsFrom - (secondsFrom / 10000 * 10000)) / 100 * 60 + secondsFrom % 100; 
+        long secondsOffsetTo = (secondsTo / 10000 * 3600) + (secondsTo - (secondsTo / 10000 * 10000)) / 100 * 60 + secondsTo % 100; 
+        long secondsDifference = secondsOffsetTo - secondsOffsetFrom;
+
+        return secondsDifference * 1000000 + microSecondsTo % 1000000 - microSecondsFrom % 1000000;
+    }
+
 }
